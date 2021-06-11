@@ -1,0 +1,361 @@
+<!DOCTYPE html><html><head>
+      <title>dqn_models_note</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h2>DQN&#x53CA;&#x76F8;&#x95DC;&#x512A;&#x5316;&#x7B97;&#x6CD5;</h2>
+<p>&#x50B3;&#x7D71;MDP&#x9700;&#x8981;&#x7D00;&#x9304;&#x6BCF;&#x500B;state&#x7684;&#x8F49;&#x79FB;&#xFF0C;&#x4F46;&#x53EF;&#x60F3;&#x800C;&#x77E5;&#xFF0C;&#x5728;&#x771F;&#x5BE6;&#x7684;&#x4E16;&#x754C;&#x88E1;&#xFF0C;state&#x7684;&#x7A2E;&#x985E;&#x4E0D;&#x8A08;&#x5176;&#x6578;&#xFF0C;&#x96E3;&#x4EE5;&#x6709;&#x8DB3;&#x5920;&#x7684;&#x7A7A;&#x9593;&#x5132;&#x5B58;&#xFF0C;&#x66F4;&#x4E0D;&#x6703;&#x6709;&#x6642;&#x9593;&#x8B93;MDP&#x7684;&#x6A21;&#x578B;&#x8FED;&#x4EE3;&#x6536;&#x6582;&#xFF0C;&#x5728;&#x9019;&#x6A23;&#x7684;&#x9650;&#x5236;&#x4E0B;DQN&#x61C9;&#x904B;&#x800C;&#x751F;&#x3002;</p>
+<p>Deep Q-learning&#xFF08;DQN&#xFF09;&#x5C07;&#x6DF1;&#x5EA6;&#x5B78;&#x7FD2;&#x8207;MDP&#x7D50;&#x5408;&#xFF0C;&#x4E0D;&#x518D;&#x8A18;&#x9304;&#x6BCF;&#x500B;state&#x7684;&#x8F49;&#x79FB;&#xFF0C;&#x800C;&#x662F;&#x8A13;&#x7DF4;&#x4E00;&#x500B;&#x795E;&#x7D93;&#x7DB2;&#x7D61;&#x4F86;&#x8A55;&#x4F30;&#x5404;&#x7A2E;state&#x4E0B;action&#x7684;&#x50F9;&#x503C;&#xFF0C;&#x9019;&#x7A2E;&#x65B9;&#x6CD5;&#x986F;&#x7136;&#x89E3;&#x6C7A;&#x4E86;&#x5132;&#x5B58;&#x7A7A;&#x9593;&#x904E;&#x5927;&#x7684;&#x554F;&#x984C;&#xFF0C;&#x4F46;&#x65BC;&#x6B64;&#x540C;&#x6642;&#xFF0C;&#x900F;&#x904E;&#x795E;&#x7D93;&#x7DB2;&#x8DEF;&#x5F97;&#x4F86;&#x7684;&#x4F30;&#x503C;&#x7D42;&#x7A76;&#x4E0D;&#x5982;&#x7D00;&#x9304;&#x7684;&#x7CBE;&#x6E96;&#xFF0C;&#x4E5F;&#x672A;&#x5FC5;&#x80FD;&#x5920;&#x6536;&#x6582;&#xFF0C;&#x56E0;&#x6B64;&#x7522;&#x751F;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x6A21;&#x578B;&#x4F86;&#x89E3;&#x6C7A;&#x9019;&#x6A23;&#x7684;&#x554F;&#x984C;&#x3002;</p>
+<p>&#x5728;&#x6B64;&#x4E3B;&#x8981;&#x7D00;&#x9304;&#x7B97;&#x6CD5;&#x7684;&#x512A;&#x7F3A;&#x9EDE;&#x8207;&#x4E00;&#x4E9B;&#x512A;&#x5316;&#x7684;&#x624B;&#x6CD5;&#xFF0C;&#x4E0D;&#x6703;&#x5C0D;MDP&#x7684;&#x539F;&#x7406;&#x4E00;&#x985E;&#x7D30;&#x7BC0;&#x505A;&#x904E;&#x591A;&#x89E3;&#x91CB;&#x3002;</p>
+<p><strong>DQN</strong></p>
+<ul>
+<li>
+<p>&#x6700;&#x57FA;&#x790E;&#x7684;DQN&#xFF0C;&#x7528;&#x4E00;&#x500B;&#x795E;&#x7D93;&#x7DB2;&#x8DEF;&#x4F86;&#x8A55;&#x4F30;&#x5404;&#x500B;state&#x4E0B;action&#x7684;&#x50F9;&#x503C;</p>
+</li>
+<li>
+<p>&#x7B97;&#x6CD5;&#x6D41;&#x7A0B;&#xFF1A;</p>
+<p><img src="./src/dqn_step.jpg" alt></p>
+</li>
+<li>
+<p>Replay experience&#xFF1A;</p>
+<ul>
+<li>&#x5728;DQN&#x4E2D;&#xFF0C;&#x505A;&#x5B8C;&#x6BCF;&#x500B;action&#xFF0C;&#x6703;&#x5C07;&#x6536;&#x5230;&#x7684;&#x56DE;&#x994B;&#x5B58;&#x5165;&#x8A18;&#x61B6;&#x9AD4;&#x4E2D;&#xFF0C;&#x518D;&#x5F9E;&#x8A18;&#x61B6;&#x9AD4;&#x88E1;&#x96A8;&#x6A5F;&#x62BD;&#x53D6;&#x4E00;&#x4E9B;&#x8F49;&#x79FB;&#x7D00;&#x9304;&#x8A13;&#x7DF4;&#x795E;&#x7D93;&#x7DB2;&#x8DEF;&#xFF0C;&#x5176;&#x76EE;&#x7684;&#x5728;&#x65BC;&#x4E0D;&#x8981;&#x5FD8;&#x8A18;&#x904E;&#x53BB;&#x7684;&#x72C0;&#x6CC1;</li>
+<li>&#x5982;&#x679C;&#x6BCF;&#x6B21;&#x90FD;&#x62FF;&#x6700;&#x65B0;&#x7684;&#x56DE;&#x994B;&#x8A13;&#x7DF4;&#xFF0C;&#x795E;&#x7D93;&#x7DB2;&#x8DEF;&#x53EA;&#x6703;fit&#x6700;&#x8FD1;&#x4E00;&#x6BB5;&#x6642;&#x9593;&#x7684;&#x6578;&#x64DA;</li>
+</ul>
+</li>
+<li>
+<p>Batch size&#xFF1A;</p>
+<ul>
+<li>&#x6BCF;&#x6B21;&#x62BD;&#x53D6;&#x90E8;&#x5206;&#x7684;&#x8CC7;&#x6599;&#xFF0C;&#x662F;&#x56E0;&#x70BA;&#x62FF;&#x5168;&#x90E8;&#x7684;&#x8CC7;&#x6599;&#x8A13;&#x7DF4;&#xFF0C;&#x6703;&#x9700;&#x8981;&#x592A;&#x9577;&#x7684;&#x6642;&#x9593;&#xFF0C;&#x800C;&#x57FA;&#x65BC;&#x6279;&#x68AF;&#x5EA6;&#x4E0B;&#x964D;&#x6CD5;&#x7684;&#x908F;&#x8F2F;&#xFF0C;&#x9078;&#x53D6;&#x4E00;&#x5B9A;&#x5927;&#x5C0F;&#x7684;&#x8CC7;&#x6599;&#x8A13;&#x7DF4;&#xFF0C;&#x53EF;&#x4EE5;&#x4FDD;&#x8B49;&#x76F8;&#x4F3C;&#x7684;&#x68AF;&#x5EA6;&#x65B9;&#x5411;</li>
+<li>batch&#x8D8A;&#x5927;&#xFF0C;&#x68AF;&#x5EA6;&#x65B9;&#x5411;&#x8D8A;&#x6E96;&#x78BA;&#xFF0C;&#x8A13;&#x7DF4;&#x7684;&#x9707;&#x76EA;&#x4E5F;&#x8D8A;&#x5C0F;</li>
+</ul>
+</li>
+<li>
+<p>&#x7F3A;&#x9EDE;&#xFF1A;</p>
+<ul>
+<li>&#x5B78;&#x7FD2;&#x8868;&#x73FE;&#x4E0D;&#x7A69;&#x5B9A;&#xFF0C;&#x8D77;&#x4F0F;&#x5927;</li>
+<li>&#x7528;&#x795E;&#x7D93;&#x7DB2;&#x8DEF;&#x9810;&#x4F30;&#x7684;&#x7D50;&#x679C;&#x512A;&#x5316;&#x81EA;&#x8EAB;&#xFF0C;&#x76F8;&#x95DC;&#x6027;&#x592A;&#x5F37;&#xFF0C;&#x4E0D;&#x5BB9;&#x6613;&#x6536;&#x6582;</li>
+</ul>
+</li>
+</ul>
+<p><strong>Nature DQN</strong></p>
+<ul>
+<li>&#x57FA;&#x65BC;DQN&#x7684;&#x6539;&#x9032;&#xFF0C;&#x6709;&#x5169;&#x500B;&#x76F8;&#x540C;&#x67B6;&#x69CB;&#x7684;&#x795E;&#x7D93;&#x7DB2;&#x8DEF;&#xFF0C;&#x4E0D;&#x518D;&#x4F7F;&#x7528;&#x8EAB;&#x7D93;&#x7DB2;&#x8DEF;&#x7684;&#x9810;&#x6E2C;&#x503C;&#x4F86;&#x512A;&#x5316;&#x81EA;&#x8EAB;&#xFF0C;&#x800C;&#x662F;&#x4F7F;&#x7528;&#x53E6;&#x4E00;&#x500B;target&#x7DB2;&#x8DEF;&#x4F86;&#x9810;&#x4F30;&#xFF0C;&#x6BCF;&#x9694;&#x4E00;&#x6BB5;&#x6642;&#x9593;&#x5C07;&#x88AB;&#x8A13;&#x7DF4;&#x7684;&#x795E;&#x7D93;&#x7DB2;&#x8DEF;&#x53C3;&#x6578;&#x8907;&#x88FD;&#x7D66;target&#x795E;&#x7D93;&#x7DB2;&#x8DEF;&#xFF0C;&#x4EE5;&#x6B64;&#x505A;&#x968E;&#x6BB5;&#x6027;&#x7684;&#x5B78;&#x7FD2;</li>
+<li>&#x7F3A;&#x9EDE;&#xFF1A;
+<ul>
+<li>&#x5728;&#x5B78;&#x7FD2;&#x6642;&#xFF0C;next state&#x7684;&#x9810;&#x4F30;&#x90FD;&#x63A1;&#x7528;&#x6700;&#x5927;&#x503C;&#xFF0C;&#x4F7F;&#x5F97;Q&#x503C;&#x9AD8;&#x4F30;&#xFF0C;&#x6709;&#x66F4;&#x5927;&#x7684;bias</li>
+</ul>
+</li>
+</ul>
+<p><strong>Double DQN</strong></p>
+<ul>
+<li>&#x57FA;&#x65BC;Nature DQN&#x7684;&#x6539;&#x9032;&#xFF0C;&#x4E00;&#x6A23;&#x6709;&#x5169;&#x500B;&#x76F8;&#x540C;&#x67B6;&#x69CB;&#x7684;&#x795E;&#x7D93;&#x7DB2;&#x8DEF;&#xFF0C;&#x5728;&#x4F7F;&#x7528;target&#x7DB2;&#x8DEF;&#x7684;&#x9810;&#x4F30;&#x503C;&#x6642;&#xFF0C;&#x4E0D;&#x518D;&#x76F4;&#x63A5;&#x53D6;&#x6700;&#x5927;&#x7684;Q&#x503C;&#xFF0C;&#x800C;&#x662F;&#x6309;&#x8A13;&#x7DF4;&#x7684;&#x795E;&#x7D93;&#x7DB2;&#x8DEF;&#x66F4;&#x504F;&#x597D;&#x54EA;&#x500B;action&#xFF08;&#x8A55;&#x5206;&#x66F4;&#x9AD8;&#xFF09;&#x9078;&#x53D6;Q&#x503C;</li>
+</ul>
+<p><strong>&#x512A;&#x5316;&#x8207;&#x5BE6;&#x4F5C;&#x7D30;&#x7BC0;</strong></p>
+<ul>
+<li>Reward&#xFF1A;
+<ul>
+<li>&#x5728;&#x771F;&#x5BE6;&#x74B0;&#x5883;&#x4E2D;&#xFF0C;Reward&#x6642;&#x5E38;&#x662F;&#x4E0D;&#x986F;&#x8457;&#x7684;&#xFF0C;&#x8209;&#x4F8B;&#x800C;&#x8A00;&#xFF0C;&#x5728;CartPole&#x7684;&#x904A;&#x6232;&#x4E2D;&#xFF0C;&#x53EA;&#x8981;&#x9019;&#x4E00;&#x500B;action&#x6C92;&#x6709;&#x5C0E;&#x81F4;&#x904A;&#x6232;&#x7D50;&#x675F;Reward&#x5C31;&#x662F;1&#xFF0C;&#x53CD;&#x4E4B;&#x662F;0&#xFF0C;&#x9019;&#x6A23;&#x7684;&#x6578;&#x64DA;&#x5F88;&#x96E3;&#x5E6B;&#x52A9;&#x6A21;&#x578B;&#x5224;&#x65B7;&#x52D5;&#x4F5C;&#x7684;&#x597D;&#x58DE;</li>
+<li>&#x6211;&#x5BE6;&#x4F5C;&#x6642;&#x4E0D;&#x63A1;&#x7528;&#x539F;&#x672C;&#x7684;Reward&#xFF0C;&#x800C;&#x662F;&#x91CD;&#x65B0;&#x8A2D;&#x8A08;Reward function&#xFF0C;&#x5176;&#x4E2D;&#x4E3B;&#x8981;&#x8003;&#x616E;&#x904A;&#x6232;&#x662F;&#x5426;&#x7D50;&#x675F;&#x3001;&#x8ECA;&#x5B50;&#x96E2;&#x4E2D;&#x5FC3;&#x8DDD;&#x96E2;&#xFF0C;&#x4EE5;&#x53CA;&#x6728;&#x68D2;&#x50BE;&#x659C;&#x89D2;&#x5EA6;</li>
+<li>&#x53E6;&#x4E00;&#x500B;&#x554F;&#x984C;&#x662F;Reward&#x7684;&#x5206;&#x4F48;&#x4E26;&#x4E0D;&#x5E73;&#x5747;&#xFF0C;&#x4F7F;&#x904A;&#x6232;&#x7E7C;&#x7E8C;&#x8DDF;&#x4F7F;&#x904A;&#x6232;&#x7D50;&#x675F;&#x7684;&#x8F49;&#x79FB;&#x7684;&#x6BD4;&#x4F8B;&#x76F8;&#x7576;&#x61F8;&#x6B8A;&#xFF0C;&#x9019;&#x6703;&#x5F71;&#x97FF;&#x62BD;&#x53D6;batch&#x5B78;&#x7FD2;&#x7684;bias&#xFF0C;&#x82E5;&#x662F;&#x9023;&#x7E8C;&#x62BD;&#x53D6;&#x7684;&#x8CC7;&#x6599;&#x90FD;&#x6C92;&#x6709;&#x6703;&#x4F7F;&#x904A;&#x6232;&#x7D50;&#x675F;&#x7684;&#x6578;&#x64DA;&#xFF0C;&#x6703;&#x5C0E;&#x81F4;&#x4E0D;&#x597D;&#x7684;&#x8A13;&#x7DF4;&#x7D50;&#x679C;</li>
+<li>&#x6211;&#x5C07;&#x8A18;&#x61B6;&#x9AD4;&#x5206;&#x6210;&#x5169;&#x500B;&#x76F8;&#x540C;&#x5927;&#x5C0F;&#x7684;&#x90E8;&#x5206;&#xFF0C;&#x5206;&#x5225;&#x7D00;&#x9304;&#x904A;&#x6232;&#x7D50;&#x675F;&#x8DDF;&#x904A;&#x6232;&#x7E7C;&#x7E8C;&#x7684;&#x8F49;&#x79FB;&#xFF0C;&#x62BD;&#x53D6;batch&#x6642;&#xFF0C;&#x5404;&#x62BD;&#x53D6;&#x4E00;&#x534A;&#xFF0C;&#x4FDD;&#x8B49;&#x8A13;&#x7DF4;&#x6578;&#x64DA;&#x7684;&#x5E73;&#x8861;</li>
+</ul>
+</li>
+</ul>
+<p><strong>&#x8A13;&#x7DF4;&#x8868;&#x73FE;&#x7D00;&#x9304;&#x8207;Code</strong></p>
+<ul>
+<li>
+<p>DQN</p>
+<ul>
+<li><a href="./dqn/dqn_cartpole.py">Code</a></li>
+</ul>
+<p><img src="./dqn/result.png" alt></p>
+</li>
+<li>
+<p>Nature DQN</p>
+<ul>
+<li><a href="./nature_dqn/nature_dqn_cartpole.py">Code</a></li>
+</ul>
+<p><img src="./nature_dqn/result.png" alt></p>
+</li>
+<li>
+<p>Doudle DQN</p>
+<ul>
+<li><a href="./ddqn/ddqn_cartpole.py">Code</a></li>
+</ul>
+<p><img src="./ddqn/result.png" alt></p>
+</li>
+</ul>
+<p><strong>&#x53EF;&#x57F7;&#x884C;run.py&#x9032;&#x884C;demo</strong></p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
