@@ -13,7 +13,5 @@
    - 筆記：[算法分析與實現成果](http://htmlpreview.github.io?https://github.com/1am9trash/Reinforcement_Learning/blob/main/dqn_models/dqn_models_note.html)
    - 簡介：分別使用DQN、nature DQN、DDQN等模型，在CartPole（台車木棒平衡遊戲）的環境裡學習，並達成遊戲目標。
    - 由模型操控遊戲的Demo：
-
-     <video width="400" height="280" controls>
-       <source src="./dqn/src/demo.mov">
-	 </video>
+    
+     [](https://user-images.githubusercontent.com/69944614/121707285-fd03e580-cb08-11eb-8ace-e0984912a50d.mov)
